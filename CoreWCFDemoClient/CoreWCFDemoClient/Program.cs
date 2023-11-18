@@ -1,5 +1,6 @@
 ﻿using EchoService;
 using Microsoft.Extensions.Configuration;
+using System.ServiceModel;
 
 var configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json");
@@ -16,6 +17,15 @@ Console.WriteLine(simpleResult);
 var msg = new EchoMessage { Text = "Hello inside complex object (class EchoMessage instance)" };
 var msgResult = await client.ComplexEchoAsync(msg);
 Console.WriteLine(msgResult);
+
+try
+{
+    var faultErr = await client.FailEchoAsync("Lets crash some faultexception stuff");
+}
+catch (FaultException<EchoFault> ferr)
+{
+    Console.WriteLine("Got this FaultException with payload details: " + ferr.Detail.Text);
+}
 
 Console.WriteLine("Hit the any key..");
 

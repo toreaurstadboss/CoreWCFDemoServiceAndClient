@@ -30,7 +30,8 @@ app.UseServiceModel(builder =>
 });
 
 var serviceMetadataBehavior = app.Services.GetRequiredService<ServiceMetadataBehavior>();
-serviceMetadataBehavior.HttpGetEnabled = true; 
+serviceMetadataBehavior.HttpGetEnabled = true;
+serviceMetadataBehavior.HttpsGetEnabled = true;
 
 app.MapGet("/", () => "Hello World!");
 
